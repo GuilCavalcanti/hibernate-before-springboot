@@ -5,13 +5,13 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Endereco {
-	@Column(length = 50, nullable = false)
+	@Column(name = "end_logra", length = 50, nullable = false)
 	private String logradouro;
 	
-	@Column(length = 10, nullable = false)
+	@Column(name = "end_num", length = 10, nullable = false)
 	private String numero;
 	
-	@Column(length = 100, nullable = false)
+	@Column(name = "end_cidade", length = 100, nullable = false)
 	private String cidade;
 	
 	public String getLogradouro() {

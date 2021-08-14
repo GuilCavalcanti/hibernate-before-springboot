@@ -1,23 +1,24 @@
 package digytal.dao;
 
+import digytal.model.Cadastro;
 import digytal.model.Profissao;
 
 import javax.persistence.*;
 import java.util.List;
 
-public class ProfissaoDao {
+public class CadastroDao {
     private EntityManager em;
-    public ProfissaoDao(){
+    public CadastroDao(){
         em = Persistence.createEntityManagerFactory("CADASTROS_PU").createEntityManager();
     }
-    public void save(Profissao entity){
+    public void save(Cadastro entity){
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
     }
-    public boolean existsByNome(String nome){
-        Query query = em.createQuery("SELECT p FROM Profissao p WHERE p.nome= :nome");
-        query.setParameter("nome",nome);
+    public boolean existsByCpfCnpj(String cpfCnpj){
+        Query query = em.createQuery("SELECT c FROM Cadastro c WHERE c.cpfCnpj= :cpfCnpj");
+        query.setParameter("cpfCnpj",cpfCnpj);
         try{
             query.getSingleResult();
             return true;
@@ -25,8 +26,8 @@ public class ProfissaoDao {
             return false;
         }
     }
-    public List<Profissao> findAll(){
-        Query query = em.createQuery("SELECT p FROM Profissao p");
+    public List<Cadastro> findAll(){
+        Query query = em.createQuery("SELECT c FROM Cadastro c");
         return query.getResultList();
     }
 }

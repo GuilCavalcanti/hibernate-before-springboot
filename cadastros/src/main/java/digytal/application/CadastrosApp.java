@@ -3,14 +3,26 @@ package digytal.application;
 import digytal.dao.ProfissaoDao;
 import digytal.model.Profissao;
 
-public class CadastrosApp {
-    public static void main(String[] args) {
-        addProfissao();
-    }
-    static void addProfissao(){
-        ProfissaoDao dao = new ProfissaoDao();
+import java.util.List;
 
-        String nome = "INSTRUTOR";
+public class CadastrosApp {
+    static ProfissaoDao dao = new ProfissaoDao();
+    public static void main(String[] args) {
+        addProfissao("INSTRUTOR");
+        addProfissao("PROGRAMADOR");
+        addProfissao("WEB DESIGNER");
+
+        listProfissoes();
+    }
+    static void listProfissoes(){
+        System.out.println("EXIBINDO AS PROFISSOES");
+        List<Profissao> list = dao.findAll();
+        for(Profissao p: list){
+            System.out.println(p.getId() + " - " + p.getNome());
+        }
+    }
+    static void addProfissao(String nome){
+
         boolean exists = dao.existsByNome(nome);
 
         if(!exists) {
