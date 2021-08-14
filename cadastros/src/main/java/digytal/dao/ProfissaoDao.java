@@ -16,17 +16,22 @@ public class ProfissaoDao {
         em.getTransaction().commit();
     }
     public boolean existsByNome(String nome){
-        Query query = em.createQuery("SELECT p FROM Profissao p WHERE p.nome= :nome");
-        query.setParameter("nome",nome);
-        try{
-            query.getSingleResult();
-            return true;
-        }catch (NoResultException | NonUniqueResultException ex) {
-            return false;
-        }
+       return findByNome(nome)!=null;
     }
     public List<Profissao> findAll(){
         Query query = em.createQuery("SELECT p FROM Profissao p");
         return query.getResultList();
+    }
+    public Profissao findByNome(String nome){
+        Query query = em.createQuery("SELECT p FROM Profissao p WHERE p.nome= :nome");
+        query.setParameter("nome",nome);
+        try{
+            return (Profissao) query.getSingleResult();
+        }catch (NoResultException | NonUniqueResultException ex) {
+            return null;
+        }
+    }
+    public Profissao findById(Integer id){
+        return em.find(Profissao.class, id);
     }
 }

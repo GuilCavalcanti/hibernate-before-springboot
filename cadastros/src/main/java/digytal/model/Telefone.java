@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tab_telefone")
+@Table(name = "tab_cadastro_telefone")
 public class Telefone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +32,7 @@ public class Telefone {
 		this.ddd = ddd;
 		this.numero = numero;
 	}
+	public Telefone(){}
 	public Integer getId() {
 		return id;
 	}

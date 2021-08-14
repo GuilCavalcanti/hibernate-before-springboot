@@ -13,7 +13,7 @@ public class Cadastro {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 15, nullable = false, name = "cpf_cnpj")
     private String cpfCnpj;
 
     @Column(length = 50, nullable = false)
@@ -36,6 +36,10 @@ public class Cadastro {
     @Enumerated(EnumType.STRING)
     @Column(length = 1)
     private Sexo sexo;
+
+    @ManyToOne
+    @JoinColumn(name = "cd_profissao")
+    private Profissao profissao;
 
     @Embedded
     private Log log;
@@ -93,6 +97,14 @@ public class Cadastro {
     }
     public void setCpfCnpj(String cpfCnpj) {
         this.cpfCnpj = cpfCnpj;
+    }
+
+    public Profissao getProfissao() {
+        return profissao;
+    }
+
+    public void setProfissao(Profissao profissao) {
+        this.profissao = profissao;
     }
 
     @PrePersist

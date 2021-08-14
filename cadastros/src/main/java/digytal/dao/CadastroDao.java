@@ -16,6 +16,11 @@ public class CadastroDao {
         em.persist(entity);
         em.getTransaction().commit();
     }
+    public void update(Cadastro entity){
+        em.getTransaction().begin();
+        em.merge(entity);
+        em.getTransaction().commit();
+    }
     public boolean existsByCpfCnpj(String cpfCnpj){
         Query query = em.createQuery("SELECT c FROM Cadastro c WHERE c.cpfCnpj= :cpfCnpj");
         query.setParameter("cpfCnpj",cpfCnpj);
@@ -29,5 +34,8 @@ public class CadastroDao {
     public List<Cadastro> findAll(){
         Query query = em.createQuery("SELECT c FROM Cadastro c");
         return query.getResultList();
+    }
+    public Cadastro findById(Integer id){
+        return em.find(Cadastro.class, id);
     }
 }
