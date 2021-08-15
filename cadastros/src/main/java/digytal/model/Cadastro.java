@@ -37,7 +37,7 @@ public class Cadastro {
     @Column(length = 1)
     private Sexo sexo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cd_profissao")
     private Profissao profissao;
 

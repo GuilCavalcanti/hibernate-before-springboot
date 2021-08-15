@@ -3,6 +3,7 @@ package digytal.application;
 import digytal.dao.CadastroDao;
 import digytal.dao.ProfissaoDao;
 import digytal.model.*;
+import digytal.model.dto.CadastroProfissao;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,8 +18,29 @@ public class CadastrosApp {
         //addProfissao("WEB DESIGNER");
         //listProfissoes();
 
-        //addCadastro();
-        updateCadastro();
+        //addCadastro1();
+        //addCadastro2();
+        //updateCadastro();
+        //listCadastros();
+        //listCatalogoEmails();
+        listCadastrosProfissao();
+    }
+    static void listCatalogoEmails(){
+        cadastroDao.listCatalogoEmail();
+    }
+    static void listCadastrosProfissao(){
+        System.out.println("EXIBINDO OS CPF, NOME, PROFISSAO DE CADASTRO");
+        List<CadastroProfissao> list = cadastroDao.listCadastroProfissao();
+        for(CadastroProfissao c: list){
+            System.out.println(c.toString());
+        }
+    }
+    static void listCadastros(){
+        System.out.println("EXIBINDO OS CADASTROS");
+        List<Cadastro> list = cadastroDao.findAll();
+        for(Cadastro c: list){
+            System.out.println(c.getId() + " - " + c.getNome() + " - " + c.getProfissao().getNome());
+        }
     }
     static void updateCadastro(){
         Cadastro cadastro = cadastroDao.findById(8);
@@ -27,7 +49,7 @@ public class CadastrosApp {
             cadastroDao.update(cadastro);
         }
     }
-    static void addCadastro(){
+    static void addCadastro1(){
         Cadastro cadastro = new Cadastro();
         cadastro.setCpfCnpj("769877");
         cadastro.setNome("GLEYSON SAMPAIO");
@@ -48,6 +70,31 @@ public class CadastrosApp {
 
         //many to one
         Profissao profissao = profissaoDao.findByNome("INSTRUTOR");
+        cadastro.setProfissao(profissao);
+
+        cadastroDao.save(cadastro);
+    }
+    static void addCadastro2(){
+        Cadastro cadastro = new Cadastro();
+        cadastro.setCpfCnpj("786776");
+        cadastro.setNome("FRANK MARLON");
+        cadastro.setSexo(Sexo.M);
+
+        Endereco endereco = new Endereco();
+        endereco.setCidade("SAO LUIS - MA");
+        endereco.setLogradouro("AVENIDA MARANHÃO");
+        endereco.setNumero("345");
+        //embedded
+        cadastro.setEndereco(endereco);
+
+        //element collections
+        cadastro.setEmails(Arrays.asList(new String[]{"frank@digytal.com.br","fmms@hotmail.com"}));
+
+        //one to many
+        cadastro.setTelefones(Arrays.asList(new Telefone[]{new Telefone(TelefoneTipo.W,98,976540987L)}));
+
+        //many to one
+        Profissao profissao = profissaoDao.findByNome("PROGRAMADOR");
         cadastro.setProfissao(profissao);
 
         cadastroDao.save(cadastro);
